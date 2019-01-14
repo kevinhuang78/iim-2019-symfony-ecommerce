@@ -1,6 +1,6 @@
 # IIM A4 IWM Symfony 4 E-Commerce (Class)
 
-## Dependecies
+## Dependencies
 
 - Curl
 - Composer
