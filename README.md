@@ -1,5 +1,11 @@
 # IIM A4 IWM Symfony 4 E-Commerce (Class)
 
+## Dependecies
+
+- Curl
+- Composer
+- PHP (At least 7.1)
+
 ## Install the project
 
 - `git clone https://github.com/kevinhuang78/iim-2019-symfony-ecommerce.git`
