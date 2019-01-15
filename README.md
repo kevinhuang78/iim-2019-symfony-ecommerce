@@ -14,6 +14,8 @@
 ## Configure
 
 - Change `.env` to connect database
+- Create database with this command `php bin/console doctrine:database:create`
+- Create columns with this command `php bin/console doctrine:schema:update --force`
 
 ## Run the project
 
