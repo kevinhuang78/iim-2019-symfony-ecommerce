@@ -4,7 +4,7 @@
 
 - Curl
 - Composer
-- PHP (At least 7.1)
+- PHP **(At least 7.1)**
 
 ## Install the project
 
@@ -15,7 +15,7 @@
 
 - Change `.env` to connect database
 - Create database with this command `php bin/console doctrine:database:create`
-- Create columns with this command `php bin/console doctrine:schema:update --force`
+- Create schema columns with this command `php bin/console doctrine:schema:update --force`
 
 ## Run the project
 
