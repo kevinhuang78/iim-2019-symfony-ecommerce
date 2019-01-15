@@ -17,6 +17,10 @@
 - Create database with this command `php bin/console doctrine:database:create`
 - Create schema columns with this command `php bin/console doctrine:schema:update --force`
 
+## _Note for Developers only_
+
+If you want to add _fixtures_, run this command : `php bin/console doctrine:fixtures:load`
+
 ## Run the project
 
 - `php bin/console server:run`
