@@ -24,7 +24,7 @@ class CollectionFixtures extends Fixture
             $collection = new Collection();
             $collection->setName(ucwords($name));
             $collection->setSlug($slugify->slugify($name));
-            $collection->setPictureUrl('https://via.placeholder.com/1920x570');
+            $collection->setPictureUrl($faker->imageUrl(1920, 780, 'cats'));
             $collection->setDateAdd(new \DateTime());
 
             $manager->persist($collection);
