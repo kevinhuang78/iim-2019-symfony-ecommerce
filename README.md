@@ -19,7 +19,7 @@
 
 ## _Note for Developers only_
 
-If you want to add _fixtures_, run this command : `php bin/console doctrine:fixtures:load`
+If you want to add _fixtures_, run this command : `php bin/console doctrine:fixtures:load` (Optional : Add `--append` at the end of the command line to not purge database)
 
 ## Run the project
 
