@@ -2,7 +2,7 @@
     <!-- Block2 -->
     <div class="block2">
         <div class="block2-img wrap-pic-w of-hidden pos-relative">
-            <img src="{{ product.pictureUrl }}" alt="IMG-PRODUCT">
+            <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}">
 
             <div class="block2-overlay trans-0-4">
                 <div class="block2-btn-addcart w-size1 trans-0-4">
@@ -15,7 +15,7 @@
         </div>
 
         <div class="block2-txt p-t-20">
-            <a href="#" class="block2-name dis-block s-text3 p-b-5">
+            <a href="{{ path('product', {'slug': product.slug}) }}" class="block2-name dis-block s-text3 p-b-5">
                 {{ product.name }}
             </a>
 
