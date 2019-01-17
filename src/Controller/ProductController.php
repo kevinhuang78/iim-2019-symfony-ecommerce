@@ -10,7 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     /**
+     * @param $slug
      * @Route("/product/{slug}", name="product", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index($slug)
     {
