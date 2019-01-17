@@ -33,6 +33,7 @@ class ProductFixtures extends Fixture
             $product->setPrice(rand(10, 100));
             $product->setSku('PRODUCT-' . $i);
             $product->setCollection($collections[rand(0, count($collections) - 1)]);
+            $product->setStock(rand(10, 100));
 
             $manager->persist($product);
         }
