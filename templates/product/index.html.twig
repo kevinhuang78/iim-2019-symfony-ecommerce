@@ -7,5 +7,19 @@
         <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: 300px; height: auto;">
         <p>{{ "Nom : " ~ product.name }}</p>
         <p>{{ "Prix : " ~ product.price ~ "€" }}</p>
+        <button id="add-to-cart">Add to cart</button>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#add-to-cart').click(function() {
+                $.post('{{ path('add_cart_json') }}', {
+                    product_id: {{ product.id }},
+                    quantity: 1
+                })
+            });
+        });
+    </script>
 {% endblock %}
