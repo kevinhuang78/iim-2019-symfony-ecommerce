@@ -16,7 +16,9 @@ class IndexController extends AbstractController
     {
         // Instancy repository and get all collections
         $repositoryCollection = $this->getDoctrine()->getRepository(Collection::class);
-        $collections = $repositoryCollection->findAll();
+        $collections = $repositoryCollection->findBy([], [
+            'dateAdd' => 'DESC'
+        ], 2);
         // Instancy repository and get all products
         $repositoryProduct = $this->getDoctrine()->getRepository(Product::class);
         $products = $repositoryProduct->findBy([], [

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All products{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-6 col-sm-12">
+                <a href="{{ path('product', {'slug': product.slug}) }}">
+                    <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: 100%; height: auto;">
+                    <p>{{ "Nom : " ~ product.name }}</p>
+                    <p>{{ "Prix : " ~ product.price ~ "€" }}</p>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="ml-auto mr-4 mt-3">
+            {% for i in range(1, maxPagination) %}
+                <a href="{{ path('products', {'offset': i}) }}">{{ i }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

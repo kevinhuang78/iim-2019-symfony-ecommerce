@@ -38,7 +38,7 @@ class Collection
     private $dateAdd;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="collection", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="collection", orphanRemoval=true, fetch="EAGER")
      */
     private $products;
 

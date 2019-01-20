@@ -40,7 +40,7 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Collection", inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="collection_id", referencedColumnName="id")
      */
     private $collection;
 
