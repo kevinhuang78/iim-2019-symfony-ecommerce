@@ -51,7 +51,8 @@ class CollectionController extends AbstractController
         $repositoryProduct = $this->getDoctrine()->getRepository(Product::class);
         $products = $repositoryProduct->findAll();
         // TODO: Use getProducts() method to get them and not findBy Collection (don't forget view too)
-        dd($collections[0]);
+        // @Kevin, it works!
+        dd($collections[0]->getProducts()[0]);
 
         return $this->render('collection/collections.html.twig', [
             'collections' => $collections,
