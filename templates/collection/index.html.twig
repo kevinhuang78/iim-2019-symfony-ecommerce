@@ -7,7 +7,8 @@
         <img src="{{ collection.pictureUrl }}" alt="{{ "Photo de " ~ collection.name }}" style="width: 300px; height: auto;">
         <p>{{ "Nom : " ~ collection.name }}</p>
         <div class="row">
-            {% for product in products %}
+            <h2 class="col-12 my-2">Produits issus de cette collection :</h2>
+            {% for product in collection.products %}
                 <div class="col-md-4 col-sm-6">
                     <a href="{{ path('product', {'slug': product.slug}) }}">
                         <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: 100px; height: auto;" />

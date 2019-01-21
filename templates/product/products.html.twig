@@ -5,12 +5,15 @@
 {% block body %}
     <div class="row">
         {% for product in products %}
+            {% set collection = product.collection %}
             <div class="col-md-6 col-sm-12">
                 <a href="{{ path('product', {'slug': product.slug}) }}">
-                    <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: 100%; height: auto;">
+                    <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: auto; height: 200px;">
                     <p>{{ "Nom : " ~ product.name }}</p>
-                    <p>{{ "Prix : " ~ product.price ~ "€" }}</p>
+                    <p>{{ "Prix : " ~ price_format(product.price) }}</p>
                 </a>
+                <p>Ce produit appartient à la collection :</p>
+                <p>- <a href="{{ path('collection', {'slug': collection.slug}) }}">{{ collection.name }}</a></p>
             </div>
         {% endfor %}
         <div class="ml-auto mr-4 mt-3">

@@ -25,7 +25,7 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.slug }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ price_format(product.price) }}</td>
                 <td>{{ product.sku }}</td>
                 <td>{{ product.pictureUrl }}</td>
                 <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td>

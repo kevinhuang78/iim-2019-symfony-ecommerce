@@ -16,7 +16,6 @@ class ProductController extends AbstractController
      */
     public function index($slug)
     {
-        // Instancy repository and get all products
         $repositoryProduct = $this->getDoctrine()->getRepository(Product::class);
         $product = $repositoryProduct->findOneBy([
             'slug' => $slug

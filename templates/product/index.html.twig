@@ -3,10 +3,17 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
+    {% set collection = product.collection %}
     <div>
         <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: 300px; height: auto;">
         <p>{{ "Nom : " ~ product.name }}</p>
-        <p>{{ "Prix : " ~ product.price ~ "€" }}</p>
+        <p>{{ "Prix : " ~ price_format(product.price) }}</p>
+        <p>{{ "SKU : " ~ product.sku }}</p>
+        <p>Ce produit appartient à la collection :</p>
+        <a href="{{ path('collection', {'slug': collection.slug}) }}">
+            <p>- {{ collection.name }}</p>
+            <img src="{{ collection.pictureUrl }}" alt="{{ "Photo de " ~ collection.name }}" style="width: 100px; height: auto;" />
+        </a>
         <button id="add-to-cart">Add to cart</button>
     </div>
 {% endblock %}

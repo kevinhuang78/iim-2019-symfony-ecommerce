@@ -17,46 +17,36 @@ class CollectionController extends AbstractController
      */
     public function index($slug)
     {
-        // Instancy repository and get all products
         $repositoryCollection = $this->getDoctrine()->getRepository(Collection::class);
         $collection = $repositoryCollection->findOneBy([
             'slug' => $slug
         ]);
-        // TODO: Use getProducts() method to get them and not findBy Collection (don't forget view too)
-        $repositoryProduct = $this->getDoctrine()->getRepository(Product::class);
-        $products = $repositoryProduct->findBy(
-            ['collection' => $collection]
-        );
 
         if (!$collection instanceof Collection) {
             throw new NotFoundHttpException('Collection not found');
         }
 
         return $this->render('collection/index.html.twig', [
-            'collection' => $collection,
-            'products' => $products
+            'collection' => $collection
         ]);
     }
 
     /**
-     * @Route("/collections", name="collections", methods={"GET"})
+     * @param $offset
+     * @Route("/collections/{offset}", name="collections", methods={"GET"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function allCollections()
+    public function allCollections($offset)
     {
-        // Instancy repository and get all products
+        $limit = 2;
         $repositoryCollection = $this->getDoctrine()->getRepository(Collection::class);
-        $collections = $repositoryCollection->findAll();
-
-        $repositoryProduct = $this->getDoctrine()->getRepository(Product::class);
-        $products = $repositoryProduct->findAll();
-        // TODO: Use getProducts() method to get them and not findBy Collection (don't forget view too)
-        // @Kevin, it works!
-        dd($collections[0]->getProducts()[0]);
+        $numberCollections = count($repositoryCollection->findAll());
+        $numberPages = ceil($numberCollections / $limit);
+        $collections = $repositoryCollection->findBy([], null, $limit, ( $limit * ( $offset - 1 ) ));
 
         return $this->render('collection/collections.html.twig', [
             'collections' => $collections,
-            'products' => $products
+            'maxPagination' => $numberPages
         ]);
     }
 }
