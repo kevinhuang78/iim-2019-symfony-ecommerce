@@ -1,6 +1,6 @@
 <!-- Header cart noti -->
 <div class="header-cart header-dropdown">
-    <ul class="header-cart-wrapitem">
+    <ul class="header-cart-wrapitem cartAllProducts">
         {% for cartProduct in cart.cartProducts %}
             {% set product = cartProduct.product %}
             <li class="header-cart-item">
@@ -9,20 +9,20 @@
                 </div>
 
                 <div class="header-cart-item-txt">
-                    <a href="#" class="header-cart-item-name">
+                    <a href="{{ path('product', {'slug': product.slug}) }}" class="header-cart-item-name">
                         {{ product.name }}
                     </a>
 
                     <span class="header-cart-item-info">
-                    {{ cartProduct.quantity }} x {{ price_format(product.price) }}
-                </span>
+                        {{ cartProduct.quantity }} x {{ price_format(product.price) }}
+                    </span>
                 </div>
             </li>
         {% endfor %}
     </ul>
 
     <div class="header-cart-total">
-        Total: {{ cart.total ~ "€" }}
+        Total: <span class="cartTotal">{{ price_format(cart.total) }}</span>
     </div>
 
     <div class="header-cart-buttons">

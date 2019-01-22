@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,7 +19,7 @@ class Cart
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CartProduct", mappedBy="cart", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\CartProduct", mappedBy="cart", orphanRemoval=true, fetch="EAGER")
      */
     private $cartProducts;
 
@@ -39,9 +39,9 @@ class Cart
     }
 
     /**
-     * @return Collection|CartProduct[]
+     * @return DoctrineCollection|CartProduct[]
      */
-    public function getCartProducts(): Collection
+    public function getCartProducts(): DoctrineCollection
     {
         return $this->cartProducts;
     }

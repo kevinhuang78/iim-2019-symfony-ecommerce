@@ -24,17 +24,24 @@ class CartController extends AbstractController
     }
 
     /**
+     * @param SessionInterface $session
      * @Route("/cart.json", name="cart_json", methods={"GET"})
+     * @return JsonResponse
      */
-    public function cartJson()
+    public function cartJson(SessionInterface $session)
     {
-        $cart = [
-            'products' => [
-                'id'        => 1,
-                'quantity'  => 2
-            ]
-        ];
-        return new JsonResponse($cart);
+        $cartId = $session->get('cart');
+        $repositoryCart = $this->getDoctrine()->getRepository(Cart::class);
+        $cart = $cartId ? $repositoryCart->find($cartId) : new Cart();
+
+        $lastProductAdded = $cart->getCartProducts()[count($cart->getCartProducts()) - 1]
+            ? $cart->getCartProducts()[count($cart->getCartProducts()) - 1]->getProduct()
+            : '';
+
+        return new JsonResponse([
+            'lastProductAdded' => $lastProductAdded,
+            'newTotal' => $cart->getTotal()
+        ]);
     }
 
     /**
@@ -92,11 +99,8 @@ class CartController extends AbstractController
     public function partial(SessionInterface $session)
     {
         $cartId = $session->get('cart');
-
         $repositoryCart = $this->getDoctrine()->getRepository(Cart::class);
-
         $cart = $cartId ? $repositoryCart->find($cartId) : new Cart();
-
 
         return $this->render('partials/cart.html.twig', [
             'cart' => $cart

@@ -96,7 +96,22 @@
                 $.post('{{ path('add_cart_json') }}', {
                     product_id: $(this).attr('data-id'),
                     quantity: 1
-                })
+                });
+                $.get("{{ path('cart_json') }}", function(data){
+                    let lastProductUrl = '{{ path("product", {'slug': 'lastProductSlug'}) }}';
+                    lastProductUrl = lastProductUrl.replace("lastProductSlug", data.lastProductAdded.slug);
+                    $('.cartTotal').replaceWith(data.newTotal + " €");
+                    $('.cartAllProducts').append("" +
+                        "<li class='header-cart-item'>" +
+                            "<div class='header-cart-item-img'>" +
+                                "<img src='" + data.lastProductAdded.pictureUrl + "' alt='Photo de " + data.lastProductAdded.name +"'/>" +
+                            "</div>" +
+                            "<div class='header-cart-item-txt'>" +
+                                "<a href='" + lastProductUrl + "' class='header-cart-item-name'>" + data.lastProductAdded.name + "</a>" +
+                                "<span class='header-cart-item-info'>1 x " + data.lastProductAdded.price + "€</span>" +
+                            "</div>" +
+                        "</li>");
+                });
             });
         });
     </script>
