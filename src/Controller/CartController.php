@@ -38,6 +38,9 @@ class CartController extends AbstractController
             ? $cart->getCartProducts()[count($cart->getCartProducts()) - 1]->getProduct()
             : '';
 
+        // TODO: Get data in $lastProductAdded
+        dd($lastProductAdded);
+
         return new JsonResponse([
             'lastProductAdded' => $lastProductAdded,
             'newTotal' => $cart->getTotal()

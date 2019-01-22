@@ -19,7 +19,7 @@ class Cart
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CartProduct", mappedBy="cart", orphanRemoval=true, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="App\Entity\CartProduct", mappedBy="cart", orphanRemoval=true)
      */
     private $cartProducts;
 

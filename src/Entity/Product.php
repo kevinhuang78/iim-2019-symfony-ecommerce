@@ -38,7 +38,7 @@ class Product
     private $sku;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Collection", inversedBy="products", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Collection", inversedBy="products")
      * @ORM\JoinColumn(nullable=false, name="collection_id", referencedColumnName="id")
      */
     private $collection;
