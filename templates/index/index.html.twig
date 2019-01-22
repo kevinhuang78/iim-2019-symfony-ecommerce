@@ -100,7 +100,8 @@
                 $.get("{{ path('cart_json') }}", function(data){
                     let lastProductUrl = '{{ path("product", {'slug': 'lastProductSlug'}) }}';
                     lastProductUrl = lastProductUrl.replace("lastProductSlug", data.lastProductAdded.slug);
-                    $('.cartTotal').replaceWith(data.newTotal + " €");
+                    $('.cartTotal').html(data.newTotal + " €");
+                    $('.cartTotalProducts').html(data.newTotalProducts);
                     $('.cartAllProducts').append("" +
                         "<li class='header-cart-item'>" +
                             "<div class='header-cart-item-img'>" +
