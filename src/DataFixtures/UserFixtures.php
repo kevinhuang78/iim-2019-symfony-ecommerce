@@ -21,6 +21,8 @@ class UserFixtures extends Fixture
         // Instancy Admin
         $user = new User();
         $user->setEmail('admin@admin.fr');
+        $user->setFirstName('Pierre');
+        $user->setLastName('Grimaud');
         $password = $this->encoder->encodePassword($user, 'admin');
         $user->setPassword($password);
         $user->setRoles([
@@ -32,6 +34,8 @@ class UserFixtures extends Fixture
         // Instancy User
         $user = new User();
         $user->setEmail('user@user.fr');
+        $user->setFirstName('John');
+        $user->setLastName('Doe');
         $password = $this->encoder->encodePassword($user, 'user');
         $user->setPassword($password);
         $user->setRoles([

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My profile{% endblock %}
+
+{% block body %}
+    <div class="row container">
+        <h1>Welcome to your profile {{ user.firstName ~ " " ~ user.lastName }}</h1>
+        <div class="row container">
+            {% if myAddresses|length > 0 %}
+                <h2 class="my-4">You can find there a list of your adresses</h2>
+                {% for address in myAddresses %}
+                    <div class="col-md-4 col-sm-12 my-2">
+                        <p>{{ "Address number " ~ loop.index }}</p>
+                        <p>{{ address.user.firstName ~ " " ~ address.user.lastName }}</p>
+                        <p>{{ address.street }}</p>
+                        <p>{{ address.zipcode ~ " " ~ address.city }}</p>
+                        <p>{{ address.country }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>It seems you didn't register any address, you can add one by clicking this button and filling the form below.</p>
+            {% endif %}
+            <div class="col-12 mt-3">
+                <button id="showAddressForm" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="width: 300px;">
+                    Add an address
+                </button>
+                <div class="col-12" id="addressForm" style="display: none;">
+                    <h2>Add an address with this form</h2>
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <button>{{ button.label|default('Add this address') }}</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $('#showAddressForm').click(function(){
+                $('#addressForm').toggle(200);
+            });
+        });
+    </script>
+{% endblock %}

@@ -3,18 +3,34 @@
 {% block title %}Hello CartController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div>
+    <ul class="header-cart-wrapitem cartAllProducts">
+        {% for cartProduct in cart.cartProducts %}
+            {% set product = cartProduct.product %}
+            <li class="header-cart-item">
+                <div class="header-cart-item-img">
+                    <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}">
+                </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <div class="header-cart-item-txt">
+                    <a href="{{ path('product', {'slug': product.slug}) }}" class="header-cart-item-name">
+                        {{ product.name }}
+                    </a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/kevinhuang/Desktop/IIM/Cours/A4/Symfony avancé (Semaine du 14:01:19)/iim-2019-ecommerce-symfony4-kevin-huang/src/Controller/CartController.php'|file_link(0) }}">src/Controller/CartController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/kevinhuang/Desktop/IIM/Cours/A4/Symfony avancé (Semaine du 14:01:19)/iim-2019-ecommerce-symfony4-kevin-huang/templates/cart/index.html.twig'|file_link(0) }}">templates/cart/index.html.twig</a></code></li>
+                    <span class="header-cart-item-info">
+                        {{ cartProduct.quantity }} x {{ price_format(product.price) }}
+                    </span>
+                </div>
+            </li>
+        {% endfor %}
     </ul>
+    <div>
+        Total: {{ price_format(cart.total) }}
+        <div class="col-md-3 col-sm-10">
+            <a href="{{ path('checkout_address') }}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                Check out
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

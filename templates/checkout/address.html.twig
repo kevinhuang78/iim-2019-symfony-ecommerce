@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delivery address{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Add an address with this form</h2>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button>{{ button.label|default('Add this address') }}</button>
+            {{ form_end(form) }}
+        </div>
+        {% if myAddresses|length > 0 %}
+            <h2 class="col-12">Choose a delivery address in the list below</h2>
+            {% for address in myAddresses %}
+                <div class="col-md-4 col-sm-12">
+                    <p>{{ address.user.firstName ~ " " ~ address.user.lastName }}</p>
+                    <p>{{ address.street }}</p>
+                    <p>{{ address.zipcode ~ " " ~ address.city }}</p>
+                    <p>{{ address.country }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

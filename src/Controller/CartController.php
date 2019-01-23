@@ -14,12 +14,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     /**
+     * @param SessionInterface $session
      * @Route("/cart", name="cart", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(SessionInterface $session)
     {
+        $cartId = $session->get('cart');
+        $repositoryCart = $this->getDoctrine()->getRepository(Cart::class);
+        $cart = $cartId ? $repositoryCart->find($cartId) : new Cart();
+
         return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController'
+            'cart' => $cart
         ]);
     }
 
@@ -36,7 +42,7 @@ class CartController extends AbstractController
 
         $lastProductAdded = $cart->getCartProducts()[count($cart->getCartProducts()) - 1]
             ? $cart->getCartProducts()[count($cart->getCartProducts()) - 1]->getProduct()
-            : '';
+            : new Cart();
 
         return new JsonResponse([
             'lastProductAdded' => [
