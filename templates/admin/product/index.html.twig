@@ -27,7 +27,7 @@
                 <td>{{ product.slug }}</td>
                 <td>{{ price_format(product.price) }}</td>
                 <td>{{ product.sku }}</td>
-                <td>{{ product.pictureUrl }}</td>
+                <td><a href="{{ product.pictureUrl }}" target="_blank">{{ product.pictureUrl }}</a></td>
                 <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product.stock }}</td>
                 <td>
