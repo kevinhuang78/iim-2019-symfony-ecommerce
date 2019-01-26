@@ -5,12 +5,15 @@ namespace App\DataFixtures;
 use App\Entity\Collection;
 use App\Entity\Product;
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class ProductFixtures extends Fixture
+class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const PRODUCT_REFERENCE = 'product';
+
     public function load(ObjectManager $manager)
     {
         // Instancy Slugify
@@ -21,7 +24,19 @@ class ProductFixtures extends Fixture
         $repository = $manager->getRepository(Collection::class);
         $collections = $repository->findAll();
 
-        for ($i = 0; $i < 50; $i++){
+        $nameRef = $faker->word;
+        $productRef = new Product();
+        $productRef->setName(ucwords($nameRef));
+        $productRef->setSlug($slugify->slugify($nameRef));
+        $productRef->setPictureUrl($faker->imageUrl(710, 960, 'cats'));
+        $productRef->setDateAdd(new \DateTime());
+        $productRef->setPrice(rand(10, 100));
+        $productRef->setSku('PRODUCT-0');
+        $productRef->setCollection($collections[rand(0, count($collections) - 1)]);
+        $productRef->setStock(rand(10, 100));
+        $manager->persist($productRef);
+
+        for ($i = 1; $i < 50; $i++){
             // Tmp var to get same name
             $name = $faker->word;
             // Instancy Collection Item Fixtures
@@ -39,5 +54,14 @@ class ProductFixtures extends Fixture
         }
 
         $manager->flush();
+
+        $this->addReference(self::PRODUCT_REFERENCE, $productRef);
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            CollectionFixtures::class,
+        );
     }
 }
