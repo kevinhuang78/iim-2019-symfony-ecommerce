@@ -28,11 +28,11 @@
                         <li>
                             <a href="#">Account</a>
                             <ul class="sub_menu">
-                                {% if is_granted('ROLE_USER') %}
-                                    <li><a href="{{ path('user_profile') }}">My profile</a></li>
+                                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') %}
+                                    <li><a href="{{ path('admin_profile') }}">My profile</a></li>
                                     <li><a href="{{ path('app_logout') }}">Log out</a></li>
-                                {% elseif is_granted('ROLE_ADMIN') %}
-                                    <li><a href="{{ path('') }}">My profile</a></li>
+                                {% elseif is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                                    <li><a href="{{ path('user_profile') }}">My profile</a></li>
                                     <li><a href="{{ path('app_logout') }}">Log out</a></li>
                                 {% else %}
                                     <li><a href="{{ path('app_login') }}">Log in</a></li>
@@ -46,12 +46,12 @@
 
             <!-- Header Icon -->
             <div class="header-icons">
-                {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('user_profile') }}" class="header-wrapicon1 dis-block">
+                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') %}
+                    <a href="{{ path('admin_profile') }}" class="header-wrapicon1 dis-block">
                         <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
                     </a>
-                {% elseif is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('') }}" class="header-wrapicon1 dis-block">
+                {% elseif is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('user_profile') }}" class="header-wrapicon1 dis-block">
                         <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
                     </a>
                 {% else %}
@@ -80,12 +80,12 @@
         <div class="btn-show-menu">
             <!-- Header Icon mobile -->
             <div class="header-icons-mobile">
-                {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('user_profile') }}" class="header-wrapicon1 dis-block">
+                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') %}
+                    <a href="{{ path('admin_profile') }}" class="header-wrapicon1 dis-block">
                         <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
                     </a>
-                {% elseif is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('') }}" class="header-wrapicon1 dis-block">
+                {% elseif is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('user_profile') }}" class="header-wrapicon1 dis-block">
                         <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
                     </a>
                 {% else %}
@@ -130,11 +130,11 @@
                 <li>
                     <a href="#">Account</a>
                     <ul class="sub_menu">
-                        {% if is_granted('ROLE_USER') %}
-                            <li><a href="{{ path('user_profile') }}">My profile</a></li>
+                        {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('admin_profile') }}">My profile</a></li>
                             <li><a href="{{ path('app_logout') }}">Log out</a></li>
-                        {% elseif is_granted('ROLE_ADMIN') %}
-                            <li><a href="{{ path('') }}">My profile</a></li>
+                        {% elseif is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('user_profile') }}">My profile</a></li>
                             <li><a href="{{ path('app_logout') }}">Log out</a></li>
                         {% else %}
                             <li><a href="{{ path('app_login') }}">Log in</a></li>

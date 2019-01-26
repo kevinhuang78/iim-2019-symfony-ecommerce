@@ -17,6 +17,7 @@ class ProfileController extends AbstractController
      * @param UserInterface $user
      * @param Request $request
      * @Route("/user/profile", name="user_profile", methods={"GET", "POST"})
+     * @Route("/admin/data", name="admin_data", methods={"GET", "POST"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function userProfile(UserInterface $user, Request $request)
@@ -47,6 +48,18 @@ class ProfileController extends AbstractController
             'form'        => $form->createView(),
             'myAddresses' => $userAddresses,
             'orders'      => $userOrders
+        ]);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @Route("/admin/profile", name="admin_profile", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function adminProfile(UserInterface $user)
+    {
+        return $this->render('admin/profile/index.html.twig', [
+            'user' => $user
         ]);
     }
 }
