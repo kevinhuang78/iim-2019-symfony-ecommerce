@@ -4,6 +4,11 @@
 
 {% block body %}
 <div>
+    {% if status %}
+        {% if status == "done" %}
+            <p>Your order is accepted, please check your profile to see more. <a href="{{ path('user_profile') }}">Link to my profile</a></p>
+        {% endif %}
+    {% endif %}
     <ul class="header-cart-wrapitem cartAllProducts">
         {% for cartProduct in cart.cartProducts %}
             {% set product = cartProduct.product %}
