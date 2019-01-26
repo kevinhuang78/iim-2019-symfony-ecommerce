@@ -26,6 +26,11 @@ class OrderCommand
      */
     private $cart;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class OrderCommand
     public function setCart(?Cart $cart): self
     {
         $this->cart = $cart;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

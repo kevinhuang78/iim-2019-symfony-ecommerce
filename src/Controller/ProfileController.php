@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Address;
+use App\Entity\OrderCommand;
 use App\Form\AddressType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +37,16 @@ class ProfileController extends AbstractController
             'user' => $user
         ]);
 
+        $repositoryOrder = $this->getDoctrine()->getRepository(OrderCommand::class);
+        $userOrders = $repositoryOrder->findBy([
+            'user' => $user
+        ], ['createdAt' => 'DESC']);
+
         return $this->render('user/profile.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-            'myAddresses' => $userAddresses
+            'user'        => $user,
+            'form'        => $form->createView(),
+            'myAddresses' => $userAddresses,
+            'orders'      => $userOrders
         ]);
     }
 }

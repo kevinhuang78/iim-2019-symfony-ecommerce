@@ -37,6 +37,7 @@ class CheckoutController extends AbstractController
             $order = new OrderCommand();
             $order->setUser($user);
             $order->setCart($cart);
+            $order->setCreatedAt(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($order);

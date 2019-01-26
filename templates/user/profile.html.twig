@@ -7,7 +7,7 @@
         <h1>Welcome to your profile {{ user.firstName ~ " " ~ user.lastName }}</h1>
         <div class="row container">
             {% if myAddresses|length > 0 %}
-                <h2 class="my-4 col-12">You can find there a list of your adresses</h2>
+                <h2 class="my-4 col-12">You can find there a list of your adresses :</h2>
                 {% for address in myAddresses %}
                     <div class="col-md-4 col-sm-12 my-2">
                         <p>{{ "Address number " ~ loop.index }}</p>
@@ -17,21 +17,57 @@
                         <p>{{ address.country }}</p>
                     </div>
                 {% endfor %}
-            {% else %}
-                <p>It seems you didn't register any address, you can add one by clicking this button and filling the form below.</p>
-            {% endif %}
-            <div class="col-12 mt-3">
-                <button id="showAddressForm" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="width: 300px;">
-                    Add an address
-                </button>
-                <div class="col-12" id="addressForm" style="display: none;">
-                    <h2>Add an address with this form</h2>
-                    {{ form_start(form) }}
+                <div class="col-12 mt-3">
+                    <button id="showAddressForm" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="width: 300px;">
+                        Add an address
+                    </button>
+                    <div class="col-12" id="addressForm" style="display: none;">
+                        <h2>Add an address with this form</h2>
+                        {{ form_start(form) }}
                         {{ form_widget(form) }}
                         <button>{{ button.label|default('Add this address') }}</button>
-                    {{ form_end(form) }}
+                        {{ form_end(form) }}
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <p>It seems you didn't register any address, you can add one by clicking this button and filling the form below.</p>
+                <div class="col-12 mt-3">
+                    <button id="showAddressForm" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="width: 300px;">
+                        Add an address
+                    </button>
+                    <div class="col-12" id="addressForm" style="display: none;">
+                        <h2>Add an address with this form</h2>
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <button>{{ button.label|default('Add this address') }}</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if orders|length > 0 %}
+                <h2 class="my-4 col-12">Here's a list of your orders :</h2>
+                {% for order in orders %}
+                    <div class="col-md-4 col-sm-12 my-2 row">
+                        {{ "Order from : " ~ order.createdAt|date("d/m/Y H:i:s") }}
+                        {% for cartProduct in order.cart.cartProducts %}
+                            {% set product = cartProduct.product %}
+                            <div class="col-md-6 col-sm-12">
+                                <a href="{{ path('product', {'slug': product.slug}) }}" class="header-cart-item-name">
+                                    <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: 100px; height: auto;">
+                                    {{ product.name }}
+                                </a>
+                                <span class="header-cart-item-info">
+                                    {{ cartProduct.quantity }} x {{ price_format(product.price) }}
+                                </span>
+                            </div>
+                        {% endfor %}
+                        <p class="col-12">Total : {{ price_format(order.cart.total) }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>You have no orders.</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
