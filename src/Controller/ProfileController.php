@@ -7,6 +7,7 @@ use App\Entity\OrderCommand;
 use App\Form\AddressType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -48,6 +49,30 @@ class ProfileController extends AbstractController
             'form'        => $form->createView(),
             'myAddresses' => $userAddresses,
             'orders'      => $userOrders
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Address $address
+     * @param $id
+     * @Route("/user/profile/{id}/edit", name="user_profile_edit", methods={"GET", "POST"})
+     * @Route("/admin/data/{id}/edit", name="admin_data_edit", methods={"GET", "POST"})
+     * @return Response
+     */
+    public function editAddress(Request $request, Address $address, $id): Response
+    {
+        $form = $this->createForm(AddressType::class, $address);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('user_profile');
+        }
+
+        return $this->render('user/editAddress.html.twig', [
+            'address' => $address,
+            'form' => $form->createView(),
         ]);
     }
 

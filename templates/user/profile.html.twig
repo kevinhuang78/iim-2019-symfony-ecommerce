@@ -15,6 +15,11 @@
                         <p>{{ address.street }}</p>
                         <p>{{ address.zipcode ~ " " ~ address.city }}</p>
                         <p>{{ address.country }}</p>
+                        {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') %}
+                            <p><a href="{{ path('admin_data_edit', {'id': address.id}) }}">Edit</a></p>
+                        {% elseif is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+                            <p><a href="{{ path('user_profile_edit', {'id': address.id}) }}">Edit</a></p>
+                        {% endif %}
                     </div>
                 {% endfor %}
                 <div class="col-12 mt-3">
@@ -24,8 +29,8 @@
                     <div class="col-12" id="addressForm" style="display: none;">
                         <h2>Add an address with this form</h2>
                         {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <button>{{ button.label|default('Add this address') }}</button>
+                            {{ form_widget(form) }}
+                            <button>{{ button.label|default('Add this address') }}</button>
                         {{ form_end(form) }}
                     </div>
                 </div>

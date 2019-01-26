@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Address{% endblock %}
+
+{% block body %}
+    <h1>Edit Address</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Update') }}</button>
+    {{ form_end(form) }}
+
+    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') %}
+        <a href="{{ path('admin_data') }}">Back to profile</a>
+    {% elseif is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('user_profile') }}">Back to profile</a>
+    {% endif %}
+
+{% endblock %}
