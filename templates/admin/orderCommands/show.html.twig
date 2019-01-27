@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order #{{ order.id }}{% endblock %}
+
+{% block body %}
+    <div class="row container">
+        <h1 class="col-12">Order #{{ order.id }}</h1>
+        <div class="row container">
+            <div class="col-12">Order from : {{ order.createdAt|date("d/m/Y H:i:s") }}</div>
+            <div class="col-12">By this user : {{ order.user.firstName ~ " " ~ order.user.lastName ~ "(" ~ order.user.email ~ ")" }}</div>
+            <div class="row col-12">
+                {% for cartProduct in order.cart.cartProducts %}
+                    {% set product = cartProduct.product %}
+                    <div class="col-md-6 col-sm-12">
+                        <a href="{{ path('product', {'slug': product.slug}) }}" class="header-cart-item-name">
+                            <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}" style="width: 100px; height: auto;">
+                            {{ product.name }}
+                        </a>
+                        <span class="header-cart-item-info">
+                            {{ cartProduct.quantity }} x {{ price_format(product.price) }}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-12">Total : {{ price_format(order.cart.total) }}</div>
+            <div class="col-12"><a href="{{ path('orders_list') }}">Back to list</a></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $('#showAddressForm').click(function(){
+                $('#addressForm').toggle(200);
+            });
+        });
+    </script>
+{% endblock %}

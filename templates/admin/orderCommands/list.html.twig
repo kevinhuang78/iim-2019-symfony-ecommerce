@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of orders{% endblock %}
+
+{% block body %}
+    <div class="row container">
+        <h1>List of orders</h1>
+        <div class="row container">
+            {% if orders|length > 0 %}
+                <h2 class="my-4 col-12">Here's a list of all orders from website :</h2>
+                <table>
+                    <tr>
+                        <th class="px-2 text-center">Order from</th>
+                        <th class="px-2 text-center">By this user</th>
+                        <th class="px-2 text-center">Number of products bought</th>
+                        <th class="px-2 text-center">Total</th>
+                        <th class="px-2 text-center">Action</th>
+                    </tr>
+                    {% for order in orders %}
+                        <tr>
+                            <th class="px-2 text-center">{{ order.createdAt|date("d/m/Y H:i:s") }}</th>
+                            <th class="px-2 text-center">{{ order.user.firstName ~ " " ~ order.user.lastName ~ "(" ~ order.user.email ~ ")" }}</th>
+                            <th class="px-2 text-center">{{ order.cart.cartProducts|length }}</th>
+                            <th class="px-2 text-center">{{ price_format(order.cart.total) }}</th>
+                            <th class="px-2 text-center"><a href="{{ path('order_show', {'id': order.id}) }}">Show</a></th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>You have no orders.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $('#showAddressForm').click(function(){
+                $('#addressForm').toggle(200);
+            });
+        });
+    </script>
+{% endblock %}
