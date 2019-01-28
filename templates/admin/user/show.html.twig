@@ -23,6 +23,12 @@
                 <th>LastName</th>
                 <td>{{ user.lastName }}</td>
             </tr>
+            {% for address in user.addresses %}
+                <tr>
+                    <th>Address n°{{ loop.index }}</th>
+                    <td>{{ address.street ~ ", " ~ address.zipcode ~ " " ~ address.city ~ " " ~ address.country }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
