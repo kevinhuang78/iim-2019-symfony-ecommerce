@@ -1,30 +1,45 @@
 <img src="{{ asset('images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
-<span class="header-icons-noti cartTotalProducts">{{ cart.cartProducts|length }}</span>
+<span class="header-icons-noti cartTotalProducts">
+    {% if cart.cartProducts is defined %}
+        {{ cart.cartProducts|length }}
+    {% else %}
+        0
+    {% endif %}
+</span>
 <!-- Header cart noti -->
 <div class="header-cart header-dropdown">
     <ul class="header-cart-wrapitem cartAllProducts">
-        {% for cartProduct in cart.cartProducts %}
-            {% set product = cartProduct.product %}
-            <li class="header-cart-item">
-                <div class="header-cart-item-img">
-                    <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}">
-                </div>
+        {% if cart.cartProducts is defined %}
+            {% for cartProduct in cart.cartProducts %}
+                {% set product = cartProduct.product %}
+                <li class="header-cart-item">
+                    <div class="header-cart-item-img">
+                        <img src="{{ product.pictureUrl }}" alt="{{ "Photo de " ~ product.name }}">
+                    </div>
 
-                <div class="header-cart-item-txt">
-                    <a href="{{ path('product', {'slug': product.slug}) }}" class="header-cart-item-name">
-                        {{ product.name }}
-                    </a>
+                    <div class="header-cart-item-txt">
+                        <a href="{{ path('product', {'slug': product.slug}) }}" class="header-cart-item-name">
+                            {{ product.name }}
+                        </a>
 
-                    <span class="header-cart-item-info">
-                        {{ cartProduct.quantity }} x {{ price_format(product.price) }}
-                    </span>
-                </div>
-            </li>
-        {% endfor %}
+                        <span class="header-cart-item-info">
+                            {{ cartProduct.quantity }} x {{ price_format(product.price) }}
+                        </span>
+                    </div>
+                </li>
+            {% endfor %}
+        {% endif %}
     </ul>
 
     <div class="header-cart-total">
-        Total: <span class="cartTotal">{{ price_format(cart.total) }}</span>
+        Total:
+        <span class="cartTotal">
+            {% if cart.total is defined %}
+                {{ price_format(cart.total) }}
+            {% else %}
+                {{ price_format(0) }}
+            {% endif %}
+        </span>
     </div>
 
     <div class="header-cart-buttons">

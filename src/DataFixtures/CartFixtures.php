@@ -19,7 +19,7 @@ class CartFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($userCart);
 
         $adminCart = new Cart();
-        $adminCart->setUser($this->getReference(UserFixtures::USER_REFERENCE));
+        $adminCart->setUser($this->getReference(UserFixtures::ADMIN_REFERENCE));
         $manager->persist($adminCart);
 
         $manager->flush();

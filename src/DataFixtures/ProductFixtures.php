@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
     public const PRODUCT_REFERENCE = 'product';
+    public const PRODUCT_TWO_REFERENCE = 'product_two';
 
     public function load(ObjectManager $manager)
     {
@@ -36,7 +37,19 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $productRef->setStock(rand(10, 100));
         $manager->persist($productRef);
 
-        for ($i = 1; $i < 50; $i++){
+        $nameRefTwo = $faker->word;
+        $productRefTwo = new Product();
+        $productRefTwo->setName(ucwords($nameRefTwo));
+        $productRefTwo->setSlug($slugify->slugify($nameRefTwo));
+        $productRefTwo->setPictureUrl($faker->imageUrl(710, 960, 'cats'));
+        $productRefTwo->setDateAdd(new \DateTime());
+        $productRefTwo->setPrice(rand(10, 100));
+        $productRefTwo->setSku('PRODUCT-1');
+        $productRefTwo->setCollection($collections[rand(0, count($collections) - 1)]);
+        $productRefTwo->setStock(rand(10, 100));
+        $manager->persist($productRefTwo);
+
+        for ($i = 2; $i < 50; $i++){
             // Tmp var to get same name
             $name = $faker->word;
             // Instancy Collection Item Fixtures
@@ -56,6 +69,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
 
         $this->addReference(self::PRODUCT_REFERENCE, $productRef);
+        $this->addReference(self::PRODUCT_TWO_REFERENCE, $productRefTwo);
     }
 
     public function getDependencies()
