@@ -26,22 +26,24 @@
                     product_id: {{ product.id }},
                     quantity: 1
                 });
-                $.get("{{ path('cart_json') }}", function(data){
-                    let lastProductUrl = '{{ path("product", {'slug': 'lastProductSlug'}) }}';
-                    lastProductUrl = lastProductUrl.replace("lastProductSlug", data.lastProductAdded.slug);
-                    $('.cartTotal').html(data.newTotal + " €");
-                    $('.cartTotalProducts').html(data.newTotalProducts);
-                    $('.cartAllProducts').append("" +
-                        "<li class='header-cart-item'>" +
+                setTimeout(function(){
+                    $.get("{{ path('cart_json') }}", function(data){
+                        let lastProductUrl = '{{ path("product", {'slug': 'lastProductSlug'}) }}';
+                        lastProductUrl = lastProductUrl.replace("lastProductSlug", data.lastProductAdded.slug);
+                        $('.cartTotal').html(data.newTotal + " €");
+                        $('.cartTotalProducts').html(data.newTotalProducts);
+                        $('.cartAllProducts').append("" +
+                            "<li class='header-cart-item'>" +
                             "<div class='header-cart-item-img'>" +
-                                "<img src='" + data.lastProductAdded.pictureUrl + "' alt='Photo de " + data.lastProductAdded.name +"'/>" +
+                            "<img src='" + data.lastProductAdded.pictureUrl + "' alt='Photo de " + data.lastProductAdded.name +"'/>" +
                             "</div>" +
                             "<div class='header-cart-item-txt'>" +
-                                "<a href='" + lastProductUrl + "' class='header-cart-item-name'>" + data.lastProductAdded.name + "</a>" +
-                                "<span class='header-cart-item-info'>1 x " + data.lastProductAdded.price + "€</span>" +
+                            "<a href='" + lastProductUrl + "' class='header-cart-item-name'>" + data.lastProductAdded.name + "</a>" +
+                            "<span class='header-cart-item-info'>1 x " + data.lastProductAdded.price + "€</span>" +
                             "</div>" +
-                        "</li>");
-                });
+                            "</li>");
+                    });
+                }, 3000);
             });
         });
     </script>
