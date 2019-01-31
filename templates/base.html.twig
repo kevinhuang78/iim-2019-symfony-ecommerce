@@ -11,5 +11,18 @@
         {% block body %}{% endblock %}
         {% include 'partials/footer.html.twig' %}
         {% block javascripts %}{% endblock %}
+        <script>
+           $('.reset-cart').click(function(){
+               $.get("{{ path('cart_reset') }}", function resetCart(data){
+                   if (data.status === "done") {
+                       $('.cartTotal').html("0.00 €");
+                       $('.cartTotalProducts').html(0);
+                       $('.cartAllProducts').html("");
+                   } else {
+                       resetCart(data);
+                   }
+               });
+           });
+        </script>
     </body>
 </html>

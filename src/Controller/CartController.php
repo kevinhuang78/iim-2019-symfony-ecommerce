@@ -56,6 +56,20 @@ class CartController extends AbstractController
     }
 
     /**
+     * @param SessionInterface $session
+     * @Route("/cart_reset", name="cart_reset", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function cartReset(SessionInterface $session)
+    {
+        $session->set('cart', null);
+
+        return new JsonResponse([
+            'status' => 'done'
+        ]);
+    }
+
+    /**
      * @param Request $request
      * @param SessionInterface $session
      * @Route("/cart/add.json", name="add_cart_json", methods={"POST"})
